@@ -75,7 +75,6 @@ def agregar_producto(id_producto:int, nombre:str, descripcion:str, precio:int, s
     except Exception as ex:
         raise HTTPException(status_code=500, detail=str(ex))
 
-Terminar Tabla!!!
 @router.put("/{id_actualizar}")
 def actualizar_producto(id_actualizar:int, nombre:str, descripcion:str, precio:int, stock:int, marca:str, id_marca:int, id_inventario:int, id_categoria:int):
     try:
@@ -83,7 +82,7 @@ def actualizar_producto(id_actualizar:int, nombre:str, descripcion:str, precio:i
         cursor = cone.cursor()
         cursor.execute("""
                 UPDATE producto
-                SET nombre = :nombre, email = :email
+                SET nombre = :nombre, descripcion = :descripcion, precio = :precio, stock = :stock, marca = :marca, id_marca = :id_marca, id_inventario = :id_inventario, id_categoria = :id_categoria
                 WHERE id_producto = :id_producto
         """, {"nombre":nombre, "descripcion": descripcion, "precio":precio, "stock":stock, "marca":marca, "id_marca":id_marca, "id_inventario":id_inventario, "id_categoria":id_categoria, "id_producto":id_actualizar})
         if cursor.rowcount==0:
@@ -97,53 +96,63 @@ def actualizar_producto(id_actualizar:int, nombre:str, descripcion:str, precio:i
     except Exception as ex:
         raise HTTPException(status_code=500, detail=str(ex))
 
-@router.delete("/{rut_eliminar}")
-def eliminar_producto(rut_eliminar: int):
+@router.delete("/{id_eliminar}")
+def eliminar_producto(id_eliminar: int):
     try:
         cone = get_conexion()
         cursor = cone.cursor()
-        cursor.execute("DELETE FROM alumno WHERE rut = :rut"
-                       ,{"rut": rut_eliminar})
+        cursor.execute("DELETE FROM producto WHERE id_producto = :id_producto"
+                       ,{"id_producto": id_eliminar})
         if cursor.rowcount==0:
             cursor.close()
             cone.close()
-            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+            raise HTTPException(status_code=404, detail="Producto no encontrado")
         cone.commit()
         cursor.close()
         cone.close()
-        return {"mensaje": "Usuario eliminado con éxito"}
+        return {"mensaje": "Producto eliminado con éxito"}
     except Exception as ex:
         raise HTTPException(status_code=500, detail=str(ex))
 
 
 from typing import Optional
 
-@router.patch("/{rut_actualizar}")
-def actualizar_parcial(rut_actualizar:int, nombre:Optional[str]=None, email:Optional[str]=None):
+@router.patch("/{id_actualizar}")
+def actualizar_parcial(id_actualizar:int, nombre:Optional[str]=None, descripcion:Optional[str]=None, precio:Optional[int]=None, stock:Optional[int]=None, marca:Optional[str]=None,
+                            id_marca:Optional[int]=None, id_inventario:Optional[int]=None, id_categoria:Optional[int]=None):
     try:
-        if not nombre and not email:
+        if not nombre and not descripcion and not precio and not stock and not marca:
             raise HTTPException(status_code=400, detail="Debe enviar al menos 1 dato")
         cone = get_conexion()
         cursor = cone.cursor()
 
         campos = []
-        valores = {"rut": rut_actualizar}
+        valores = {"id_producto": id_actualizar}
         if nombre:
             campos.append("nombre = :nombre")
             valores["nombre"] = nombre
-        if email:
-            campos.append("email = :email")
-            valores["email"] = email
+        if descripcion:
+            campos.append("descripcion = :descripcion")
+            valores["descripcion"] = descripcion
+        if precio:
+            campos.append("precio = :precio")
+            valores["precio"] = precio
+        if stock:
+            campos.append("stock = :stock")
+            valores["stock"] = stock
+        if marca:
+            campos.append("marca = :marca")
+            valores["marca"] = marca
 
-        cursor.execute(f"UPDATE alumno SET {', '.join(campos)} WHERE rut = :rut"
+        cursor.execute(f"UPDATE producto SET {', '.join(campos)} WHERE id_producto = :id_producto"
                        ,valores)
         if cursor.rowcount==0:
             cursor.close()
             cone.close()
-            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+            raise HTTPException(status_code=404, detail="Producto no encontrado")
         cone.commit()
         cursor.close()
         cone.close()        
-        return {"mensaje": "Usuario actualizado con éxito"}
+        return {"mensaje": "Producto actualizado con éxito"}
     except Exception as ex:
         raise HTTPException(status_code=500, detail=str(ex))
