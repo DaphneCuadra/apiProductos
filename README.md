@@ -1,6 +1,6 @@
 # 🛍️ API de Productos - FastAPI
 
-Este proyecto corresponde a una API RESTful desarrollada con **FastAPI** para la gestión de productos, conectada a una base de datos Oracle. Ideal para integrarse en un sistema mayor de administración o e-commerce.
+Este proyecto corresponde a una API RESTful desarrollada con **FastAPI** para la gestión de productos, conectada a una base de datos Oracle. Ideal para integrarse en un sistema web.
 
 ---
 
