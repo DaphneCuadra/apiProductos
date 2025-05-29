@@ -1,6 +1,6 @@
 # 🛍️ API de Productos - FastAPI
 
-Este proyecto corresponde a una API RESTful desarrollada con **FastAPI** para la gestión de productos, conectada a una base de datos Oracle. Ideal para integrarse en un sistema web.
+Este proyecto corresponde a una API RESTful desarrollada con **FastAPI** para la gestión de productos, conectada a una base de datos Oracle. Ideal para integrarse en un sistema mayor de administración o e-commerce.
 
 ---
 
@@ -9,9 +9,9 @@ Este proyecto corresponde a una API RESTful desarrollada con **FastAPI** para la
 Antes de ejecutar los comandos, debes crear una carpeta en tu escritorio (o donde desees trabajar el proyecto). Abre tu terminal y ejecuta:
 
 ```bash
-cd Desktop/
+cd ~/Escritorio
 mkdir Productos
-cd Productos/
+cd Productos
 ```
 
 ---
@@ -21,7 +21,7 @@ cd Productos/
 Una vez dentro de la carpeta `Productos`, clona el repositorio del proyecto:
 
 ```bash
-git clone https://github.com/DaphneCuadra/apiProductos.git
+git clone <URL_DEL_REPOSITORIO>
 cd apiProductos/
 ```
 
@@ -42,7 +42,17 @@ pip install python-multipart
 
 ---
 
-## 🚀 4. Levantar el servidor
+## 🧑‍💻 4. Abrir el proyecto en VS Code
+
+Si usas Visual Studio Code, puedes abrir la carpeta del proyecto ejecutando:
+
+```bash
+code .
+```
+
+---
+
+## 🚀 5. Levantar el servidor
 
 Para iniciar la API en modo desarrollo con recarga automática, ejecuta:
 
@@ -51,16 +61,6 @@ uvicorn app.main:app --reload --port 8080
 ```
 
 La API estará disponible en: [http://localhost:8080](http://localhost:8080)
-
----
-
-## 🧑‍💻 5. Abrir el proyecto en VS Code
-
-Si usas Visual Studio Code, puedes abrir la carpeta del proyecto ejecutando:
-
-```bash
-code .
-```
 
 ---
 
