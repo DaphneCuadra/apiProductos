@@ -9,9 +9,9 @@ Este proyecto corresponde a una API RESTful desarrollada con **FastAPI** para la
 Antes de ejecutar los comandos, debes crear una carpeta en tu escritorio (o donde desees trabajar el proyecto). Abre tu terminal y ejecuta:
 
 ```bash
-cd ~/Escritorio
+cd Desktop/
 mkdir Productos
-cd Productos
+cd Productos/
 ```
 
 ---
@@ -21,7 +21,7 @@ cd Productos
 Una vez dentro de la carpeta `Productos`, clona el repositorio del proyecto:
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/DaphneCuadra/apiProductos.git
 cd apiProductos/
 ```
 
