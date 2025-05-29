@@ -68,6 +68,102 @@ def obtener_marcas():
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(ex)
         )
+
+@router.get("/estado_pago", status_code=status.HTTP_200_OK)
+def obtener_estados_pagos():
+    try:
+        cone = get_conexion()
+        cursor = cone.cursor()
+        cursor.execute("""
+            SELECT id_estado_pago, descripcion 
+            FROM estado_pago
+        """)
+        productos = []
+        for row in cursor:
+            productos.append({
+                "id_estado_pago": row[0],
+                "descripcion": row[1],
+            })
+        cursor.close()
+        cone.close()
+        return productos
+    except Exception as ex:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(ex)
+        )
+
+@router.get("/tipo_entrega", status_code=status.HTTP_200_OK)
+def obtener_tipo_entregas():
+    try:
+        cone = get_conexion()
+        cursor = cone.cursor()
+        cursor.execute("""
+            SELECT id_entrega, descripcion 
+            FROM tipo_entrega
+        """)
+        productos = []
+        for row in cursor:
+            productos.append({
+                "id_entrega": row[0],
+                "descripcion": row[1],
+            })
+        cursor.close()
+        cone.close()
+        return productos
+    except Exception as ex:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(ex)
+        )
+@router.get("/tipo_pago", status_code=status.HTTP_200_OK)
+def obtener_tipo_pagos():
+    try:
+        cone = get_conexion()
+        cursor = cone.cursor()
+        cursor.execute("""
+            SELECT id_tipo_pago, descripcion 
+            FROM tipo_pago
+        """)
+        productos = []
+        for row in cursor:
+            productos.append({
+                "id_tipo_pago": row[0],
+                "descripcion": row[1],
+            })
+        cursor.close()
+        cone.close()
+        return productos
+    except Exception as ex:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(ex)
+        )
+@router.get("/estado_pedido", status_code=status.HTTP_200_OK)
+def obtener_estados_pedidos():
+    try:
+        cone = get_conexion()
+        cursor = cone.cursor()
+        cursor.execute("""
+            SELECT id_estado_pedido, descripcion 
+            FROM estado_pedido
+        """)
+        productos = []
+        for row in cursor:
+            productos.append({
+                "id_estado_pedido": row[0],
+                "descripcion": row[1],
+            })
+        cursor.close()
+        cone.close()
+        return productos
+    except Exception as ex:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(ex)
+        )
+    
+
 @router.get("/categorias", status_code=status.HTTP_200_OK)
 def obtener_categorias():
     try:
@@ -214,6 +310,8 @@ def agregar_producto(id_producto: int,nombre: str,
         return {"mensaje": "Producto agregado con éxito"}
     except Exception as ex:
         raise HTTPException(status_code=500, detail=str(ex))
+
+
 
 # Endpoint para actualizar un producto completo
 class ProductoUpdate(BaseModel):
